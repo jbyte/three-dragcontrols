@@ -1,0 +1,25 @@
+{
+    "name": "drag-controls",
+    "version": "0.1.0",
+    "author": "jbyte",
+    "license": "MIT",
+    "devDependencies": {
+        "babel-preset-env": "^1.6.1",
+        "rollup": "^0.57.1",
+        "rollup-plugin-babel": "^3.0.3",
+        "rollup-watch": "^4.3.1",
+        "uglify-js": "^3.3.16"
+    },
+    "scripts": {
+        "dev": "rollup --config",
+        "watch": "npm run dev --watch",
+        "prod": "rollup --config && uglifyjs dist/drag-controls.js -cm --premble \"/*!\n * drag-controls\n * https://github.com/jbyte/three-dragcontrols\n * (c) 2018 @jbyte\n * Released under the MIT license.\n */\"> dist/drag-controls.min.js"
+    },
+    "keywords": [
+        "three",
+        "three.js",
+        "drag",
+        "controls",
+        "DragControls"
+    ]
+}
