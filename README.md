@@ -1,5 +1,8 @@
 # three-dragcontrols
+
 Drag controls for https://github.com/mrdoob/three.js with support for ES6 import
+
+Inspired by https://github.com/yomotsu/camera-controls to create the ES6 module
 
 # Installation
 
