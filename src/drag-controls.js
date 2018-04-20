@@ -18,6 +18,8 @@ export default class DragControls {
         _intersection = new THREE.Vector3();
         _selected = null;
         _hovered = null;
+
+        DragControls.prototype = Object.create(THREE.EventDispatcher.prototype);
     }
 
     constructor(objects, camera, domElement) {
@@ -58,7 +60,7 @@ export default class DragControls {
         function onDocumentMouseDown(event) {
             event.preventDefault();
 
-            _raycaster.setFromCamera(_mouse, _camera);
+            _raycaster.setFromCamera(_mouse, scope.camera);
 
             var intersects = _raycaster.intersectObjects(scope.objects);
             if(intersects.length > 0) {
@@ -79,7 +81,7 @@ export default class DragControls {
             _mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
             _mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-            _raycaster.setFromCamera(_mouse, _camera);
+            _raycaster.setFromCamera(_mouse, scope.camera);
 
             if(_selected && scope.enabled) {
                 if(_raycaster.ray.intersectPlane(_plane, _intersection)) {
@@ -90,12 +92,12 @@ export default class DragControls {
                 return;
             }
 
-            _raycaster.setFromCamera(_mouse, _camera);
+            _raycaster.setFromCamera(_mouse, scope.camera);
 
-            var intersects = _raycaster.intersectObjects(scope.object);
+            var intersects = _raycaster.intersectObjects(scope.objects);
             if(intersects.length > 0) {
                 var object = intersects[0].object;
-                _plane.setFromNormalAndCoplanarPoint(_camera.getWorldDirection(_plane.normal), object.position);
+                _plane.setFromNormalAndCoplanarPoint(scope.camera.getWorldDirection(_plane.normal), object.position);
 
                 if(_hovered !== object) {
                     scope.dispatchEvent({type: "hoveron", object: object});
@@ -133,11 +135,11 @@ export default class DragControls {
             _mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
             _mouse.y = -((event.clientY - rect.top) /rect.height) * 2 + 1;
 
-            _raycaster.setFromCamera(_mouse, _camera);
+            _raycaster.setFromCamera(_mouse, scope.camera);
             var intersects = _raycaster.intersectObjects(scope.objects);
             if(intersects.length > 0) {
                 _selected = intersects[0].object;
-                _plane.setFromNormalAndCoplanarPoint(_camera.getWorldDirection(_plane.normal), _selected.position);
+                _plane.setFromNormalAndCoplanarPoint(scope.camera.getWorldDirection(_plane.normal), _selected.position);
                 if(_raycaster.ray.intersectPlane(_plane, _intersection)) {
                     _offset.copy(_intersection).sub(_selected.position);
                 }
@@ -155,7 +157,7 @@ export default class DragControls {
             _mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
             _mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-            _raycaster.setFromCamera(_mouse, _camera);
+            _raycaster.setFromCamera(_mouse, scope.camera);
             if(_selected && scope.enabled) {
                 if(_raycaster.ray.intersectPlane(_plane, _intersection)) {
                     _selected.position.copy(_intersection.sub(_offset));
