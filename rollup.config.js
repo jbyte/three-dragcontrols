@@ -29,13 +29,13 @@ export default {
     output: [{
         format: "umd",
         moduleName: "DragControls",
-        file: "build/drag-controls.js",
+        file: "dist/drag-controls.js",
         name: "DragControls",
         banner: license
     },
     {
         format: "es",
-        file: "build/drag-controls.module.js",
+        file: "dist/drag-controls.module.js",
         banner: license
     }]
 };
