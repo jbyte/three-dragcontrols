@@ -1,6 +1,6 @@
 {
     "name": "drag-controls",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "author": "jbyte",
     "license": "MIT",
     "main": "dist/drag-controls.js",
